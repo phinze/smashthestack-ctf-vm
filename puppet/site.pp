@@ -1,5 +1,5 @@
-import "classes/*"
-import "nodes.pp"
+import "manifests/**/*.pp"
+import "nodes/**/*.pp"
 
 Exec["apt-get-update"] -> Package <| |>
 
