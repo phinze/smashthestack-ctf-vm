@@ -19,6 +19,7 @@ $password = "changeme"
     home => $homedir,
     uid => $uid,
     gid => $gid,
+    shell => '/bin/bash',
     password => $password
   }
 
