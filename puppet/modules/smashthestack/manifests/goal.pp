@@ -1,10 +1,16 @@
 define smashthestack::goal(
   $username = $title,
   $uid,
-  $password
+  $password,
+  $hashed_password
 ) {
   ubuntu_user { $username:
     uid => $uid,
-    password => $password
+    password => $hashed_password
+  }
+
+  file { "/home/${username}/.password":
+    content => $password,
+    owner => $username, group => $username, mode => '0600'
   }
 }

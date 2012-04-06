@@ -2,12 +2,18 @@ define smashthestack::level(
   $username = $title,
   $uid,
   $password,
+  $hashed_password,
   $source,
   $next_user
 ) {
   ubuntu_user { $username:
     uid => $uid,
-    password => $password
+    password => $hashed_password
+  }
+
+  file { "/home/${username}/.password":
+    content => $password,
+    owner => $username, group => $username, mode => '0600'
   }
 
   $file_basename = inline_template('<%= File.basename(source) %>')
