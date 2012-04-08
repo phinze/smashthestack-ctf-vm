@@ -4,6 +4,7 @@ define smashthestack::level(
   $password,
   $hashed_password,
   $source,
+  $motd,
   $next_user
 ) {
   ubuntu_user { $username:
@@ -14,6 +15,16 @@ define smashthestack::level(
   file { "/home/${username}/.password":
     content => $password,
     owner => $username, group => $username, mode => '0600'
+  }
+
+  file { "/home/${username}/.motd":
+    source => $motd,
+    owner => $username, group => $username, mode => '0600'
+  }
+
+  file { "/home/${username}/.profile":
+    content => "cat ~/.motd\n",
+    owner => $username, group => $username, mode => '0700'
   }
 
   $file_basename = inline_template('<%= File.basename(source) %>')

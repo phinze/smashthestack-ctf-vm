@@ -5,6 +5,8 @@ Vagrant::Config.run do |config|
     config.vm.host_name = "ctf.local"
   end
 
+  config.vm.provision :shell, :inline => 'gem list | grep ^libshadow || gem install libshadow --no-ri --no-rdoc'
+
   puppet_options = {
     :options => ['--user vagrant', '--group vagrant']
   }
